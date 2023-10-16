@@ -1,21 +1,4 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-
-function useSearch() {
-  const [pagination, setPagination] = useState({ offset: 0, page: 1 });
-
-  const { data, isLoading, refetch } = useQuery(["search"], () => {
-    return fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${pagination.offset}`).then(res => res.json());
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [pagination.page]);
-
-  console.log("search data: ", data);
-
-  return { isLoading, pagination, setPagination };
-}
+import { useSearch } from "@/hooks/useSearch";
 
 export default function Search() {
   const { isLoading, pagination, setPagination } = useSearch();
